@@ -2,6 +2,8 @@
 const express = require("express")
 const cors = require("cors")
 
+const transactions = require("./controllers/transactions.controller")
+
 // Controller Imports
 
 const app = express()
@@ -11,6 +13,6 @@ app.use(cors())
 app.use(express.json())
 
 // Routes
-
+app.listen("/transactions", transactions)
 
 module.exports = app
