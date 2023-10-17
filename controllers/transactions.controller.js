@@ -1,4 +1,4 @@
-const {faker} = require('@faker-js/faker')
+const {nanoid} = require("nanoid")
 
 const express = require("express")
 const transactions = express.Router()
@@ -29,16 +29,18 @@ transactions.get("/:id", (req, res) => {
 
 transactions.post("/", (req, res) => {
     const standard = {
-        item_name: "String",
+        item_name: "wtring",
         amount: "Number",
         date: "String",
         from: "String",
         category: "String"
     }
-
-    console.log(req.body)
+    
+    const received = Object.keys(req.body)
     console.log(`Post request recieved`)
     
+    req.body.id = nanoid(4)
+
     budgetArray.push(req.body)
 
     res.status(200).json(budgetArray)
