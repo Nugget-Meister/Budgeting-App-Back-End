@@ -28,31 +28,61 @@ transactions.get("/:id", (req, res) => {
 })
 
 transactions.post("/", (req, res) => {
+    console.log(`Post request recieved`)
     const standard = {
-        item_name: "wtring",
-        amount: "Number",
-        date: "String",
-        from: "String",
-        category: "String"
+        item_name: "string",
+        amount: "number",
+        date: "string",
+        from: "string",
+        category: "string"
     }
     
     const received = Object.keys(req.body)
-    console.log(`Post request recieved`)
     
+    for(let i=0; i < received.length; i++){
+        if(typeof req.body[received[i]] != standard[received[i]]) {
+            res.status(404).json({status: "BAD", message:`Invalid datatype entered for ${recieved[i]}. Aborting.`})
+        }
+    }
+
     req.body.id = nanoid(4)
 
     budgetArray.push(req.body)
 
     res.status(200).json(budgetArray)
 })
+
+
 transactions.put("/:id", (req, res) => {
     const {id} = req.params;
-    console.log(`[PUT] request received.`)
+    console.log(`[PUT] request received for id ${id}.`)
+
+    const query = budgetArray.find((transaction) => transaction.id == id )
+    const queryFound = budgetArray.indexOf(query)
+
+    if(query){
+        budgetArray[queryFound] = req.body
+        res.status(200).json(budgetArray)
+    } else {
+        res.status(404).json({status: "BAD", message:"Item with ID Not found."})
+    }
+
 
 })
 transactions.delete("/:id", (req, res) => {
     const {id} = req.params
     console.log(`[DELETE] request received for item id ${id}`)
+    const query = budgetArray.find((transaction) => transaction.id == id )
+    const queryFound = budgetArray.indexOf(query)
+
+    if(query){
+        budgetArray.splice(queryFound,1)
+        res.status(200).json(budgetArray)
+    } else {
+        res.status(404).json({status: "BAD", message:"Item with ID Not found."})
+    }
+
+
 
 })
 
