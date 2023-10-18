@@ -23,7 +23,7 @@ transactions.get("/:id", (req, res) => {
         res.status(200).json(query)
     }else {
         console.log(`Object with id: ${id} Not found`)
-        res.status(404).json({status: "BAD"})
+        res.status(404).json({status: "BAD", message:`Object with id ${id} not found.`})
     } 
 })
 
@@ -79,7 +79,7 @@ transactions.delete("/:id", (req, res) => {
         budgetArray.splice(queryFound,1)
         res.status(200).json(budgetArray)
     } else {
-        res.status(404).json({status: "BAD", message:"Item with ID Not found."})
+        res.status(404).json({status: "BAD", message: "Item with ID Not found."})
     }
 
 
