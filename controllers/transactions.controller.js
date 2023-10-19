@@ -29,28 +29,18 @@ transactions.get("/:id", (req, res) => {
 
 transactions.post("/", (req, res) => {
     console.log(`Post request recieved`)
-    const standard = {
-        item_name: "string",
-        amount: "number",
-        date: "string",
-        from: "string",
-        category: "string"
-    }
-    
-    const received = Object.keys(req.body)
-    
-    for(let i=0; i < received.length; i++){
-        if(typeof req.body[received[i]] != standard[received[i]]) {
-            res.status(404).json({status: "BAD", message:`Invalid datatype entered for ${recieved[i]}. Aborting.`})
+        if(budgetArray.find((transaction) => transaction.id == req.body.id)){
+            req.body.id == nanoid(4)
         }
+        budgetArray.push(req.body)
+        res.status(200).json(budgetArray)
+
     }
+)
 
-    req.body.id = nanoid(4)
+    
 
-    budgetArray.push(req.body)
-
-    res.status(200).json(budgetArray)
-})
+    
 
 
 transactions.put("/:id", (req, res) => {
