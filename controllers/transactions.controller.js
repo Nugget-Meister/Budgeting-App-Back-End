@@ -29,7 +29,7 @@ transactions.get("/:id", (req, res) => {
 
 transactions.post("/", (req, res) => {
     console.log(`Post request recieved`)
-        if(budgetArray.find((transaction) => transaction.id == req.body.id)){
+        if(budgetArray.find((transaction) => transaction.id === req.body.id)){
             req.body.id == nanoid(4)
         }
         budgetArray.push(req.body)
